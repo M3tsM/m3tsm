@@ -16,7 +16,6 @@
             --card-bg: rgba(15, 23, 42, 0.55);
             --card-border: rgba(148, 163, 209, 0.25);
 
-            /* n8n chat theming */
             --chat--font-family: "Poppins", "Segoe UI", Arial, sans-serif;
             --chat--color-primary: #5ee7df;
             --chat--color-primary-shade-50: #4bd8cf;
@@ -79,18 +78,20 @@
         body {
             background: var(--bg-gradient);
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
+            min-height: 100dvh;
         }
 
         .orb {
             position: absolute;
-            width: 320px;
-            height: 320px;
+            width: clamp(180px, 26vw, 320px);
+            height: clamp(180px, 26vw, 320px);
             border-radius: 50%;
             filter: blur(0.5px);
             opacity: 0.8;
             mix-blend-mode: screen;
             animation: drift 18s infinite ease-in-out;
+            pointer-events: none;
         }
 
         .orb::after {
@@ -166,7 +167,7 @@
         }
 
         .radio-link {
-            position: absolute;
+            position: fixed;
             top: 24px;
             right: 24px;
             padding: 12px 24px;
@@ -179,7 +180,7 @@
             background: var(--accent-gradient);
             box-shadow: 0 12px 24px rgba(94, 231, 223, 0.3), 0 4px 12px rgba(17, 24, 39, 0.25);
             transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.5s ease;
-            z-index: 3;
+            z-index: 5;
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -236,19 +237,31 @@
             font-size: 1.1rem;
         }
 
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+            min-height: 100dvh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(24px, 5vh, 48px);
+            padding: clamp(72px, 12vh, 128px) clamp(18px, 5vw, 72px) clamp(126px, 18vh, 160px);
+        }
+
         .center-container {
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%;
-            position: relative;
-            z-index: 2;
         }
 
         .logo-frame {
             position: relative;
-            padding: 36px;
-            border-radius: 32px;
+            width: min(80vw, 480px);
+            padding: clamp(24px, 5vw, 36px);
+            border-radius: clamp(20px, 5vw, 32px);
             backdrop-filter: blur(18px);
             background: linear-gradient(145deg, rgba(15, 23, 42, 0.45), rgba(30, 41, 59, 0.2));
             box-shadow: 0 20px 45px rgba(10, 17, 35, 0.45);
@@ -258,8 +271,8 @@
         .logo-frame::before {
             content: "";
             position: absolute;
-            inset: 8px;
-            border-radius: 24px;
+            inset: clamp(6px, 1.8vw, 8px);
+            border-radius: clamp(16px, 4vw, 24px);
             background: linear-gradient(135deg, rgba(94, 231, 223, 0.15), transparent 65%);
             opacity: 0.7;
             pointer-events: none;
@@ -281,10 +294,11 @@
         }
 
         img {
-            max-width: min(65vw, 540px);
+            width: 100%;
+            height: auto;
             max-height: min(65vh, 540px);
             display: block;
-            border-radius: 24px;
+            border-radius: clamp(18px, 4vw, 24px);
             position: relative;
             z-index: 1;
             box-shadow: 0 18px 45px rgba(8, 11, 26, 0.4);
@@ -297,25 +311,25 @@
         }
 
         .platform-panel {
-            position: absolute;
-            bottom: -5px;
-            left: 50%;
-            transform: translateX(-50%);
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             align-items: stretch;
-            gap: 20px;
-            width: min(90vw, 480px);
-            z-index: 3;
+            gap: clamp(14px, 3vw, 18px);
+            width: 100%;
+            max-width: 440px;
+            margin: 0 auto;
         }
 
         .platform-card {
+            flex: 1 1 150px;
+            max-width: 200px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            border-radius: 24px;
+            padding: clamp(12px, 3.5vw, 16px);
+            border-radius: 20px;
             text-decoration: none;
             color: inherit;
             background: var(--card-bg);
@@ -323,9 +337,7 @@
             backdrop-filter: blur(16px);
             box-shadow: 0 14px 32px rgba(8, 11, 26, 0.35);
             transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            gap: 16px;
-            flex: 1;
-            min-width: 0;
+            gap: 12px;
         }
 
         .platform-card:hover {
@@ -339,8 +351,8 @@
         }
 
         .badge-circle {
-            width: 76px;
-            height: 76px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -352,13 +364,13 @@
 
         .badge-tunein {
             background: linear-gradient(135deg, #5ee7df 0%, #4895f5 50%, #b490ca 100%);
-            box-shadow: 0 8px 24px rgba(94, 231, 223, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 6px 20px rgba(94, 231, 223, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3);
         }
 
         .badge-tunein::before {
             content: "";
             position: absolute;
-            inset: 8px;
+            inset: 6px;
             border-radius: 50%;
             background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), transparent);
             z-index: 1;
@@ -371,7 +383,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 2px;
+            gap: 1px;
+            transform: scale(0.85);
         }
 
         .tunein-waves {
@@ -381,17 +394,17 @@
         }
 
         .tunein-wave {
-            width: 4px;
+            width: 3px;
             background: linear-gradient(to top, #0a1428, #ffffff);
             border-radius: 2px;
             animation: wave 1.2s ease-in-out infinite;
         }
 
-        .tunein-wave:nth-child(1) { height: 14px; animation-delay: 0s; }
-        .tunein-wave:nth-child(2) { height: 22px; animation-delay: 0.1s; }
-        .tunein-wave:nth-child(3) { height: 18px; animation-delay: 0.2s; }
-        .tunein-wave:nth-child(4) { height: 24px; animation-delay: 0.3s; }
-        .tunein-wave:nth-child(5) { height: 16px; animation-delay: 0.4s; }
+        .tunein-wave:nth-child(1) { height: 12px; animation-delay: 0s; }
+        .tunein-wave:nth-child(2) { height: 18px; animation-delay: 0.1s; }
+        .tunein-wave:nth-child(3) { height: 15px; animation-delay: 0.2s; }
+        .tunein-wave:nth-child(4) { height: 20px; animation-delay: 0.3s; }
+        .tunein-wave:nth-child(5) { height: 14px; animation-delay: 0.4s; }
 
         @keyframes wave {
             0%, 100% { transform: scaleY(1); opacity: 0.7; }
@@ -400,13 +413,13 @@
 
         .badge-alexa {
             background: linear-gradient(135deg, #5ee7df 0%, #7f7fd5 50%, #b490ca 100%);
-            box-shadow: 0 8px 24px rgba(127, 127, 213, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 6px 20px rgba(127, 127, 213, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3);
         }
 
         .badge-alexa::before {
             content: "";
             position: absolute;
-            inset: 8px;
+            inset: 6px;
             border-radius: 50%;
             background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), transparent);
             z-index: 1;
@@ -419,11 +432,12 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            transform: scale(0.82);
         }
 
         .alexa-ring {
-            width: 32px;
-            height: 32px;
+            width: 26px;
+            height: 26px;
             border-radius: 50%;
             background: linear-gradient(135deg, rgba(10, 20, 40, 0.8), rgba(10, 20, 40, 0.95));
             display: flex;
@@ -439,8 +453,8 @@
             top: -2px;
             left: 50%;
             transform: translateX(-50%);
-            width: 16px;
-            height: 3px;
+            width: 14px;
+            height: 2px;
             background: linear-gradient(90deg, transparent, #5ee7df, transparent);
             border-radius: 2px;
             animation: alexa-pulse 2s ease-in-out infinite;
@@ -453,17 +467,17 @@
         }
 
         .alexa-bar {
-            width: 2.5px;
+            width: 2px;
             background: linear-gradient(to top, #5ee7df, #91eae4);
             border-radius: 2px;
             animation: alexa-wave 1s ease-in-out infinite;
         }
 
-        .alexa-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
-        .alexa-bar:nth-child(2) { height: 12px; animation-delay: 0.1s; }
-        .alexa-bar:nth-child(3) { height: 10px; animation-delay: 0.2s; }
-        .alexa-bar:nth-child(4) { height: 14px; animation-delay: 0.3s; }
-        .alexa-bar:nth-child(5) { height: 9px; animation-delay: 0.4s; }
+        .alexa-bar:nth-child(1) { height: 7px; animation-delay: 0s; }
+        .alexa-bar:nth-child(2) { height: 10px; animation-delay: 0.1s; }
+        .alexa-bar:nth-child(3) { height: 9px; animation-delay: 0.2s; }
+        .alexa-bar:nth-child(4) { height: 12px; animation-delay: 0.3s; }
+        .alexa-bar:nth-child(5) { height: 8px; animation-delay: 0.4s; }
 
         @keyframes alexa-wave {
             0%, 100% { transform: scaleY(0.7); opacity: 0.6; }
@@ -479,12 +493,12 @@
             text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
         }
 
         .platform-name {
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.88rem;
             letter-spacing: 0.02em;
             background: var(--accent-gradient);
             -webkit-background-clip: text;
@@ -493,9 +507,9 @@
         }
 
         .platform-tagline {
-            font-size: 0.78rem;
-            color: rgba(226, 232, 240, 0.75);
-            line-height: 1.4;
+            font-size: 0.7rem;
+            color: rgba(226, 232, 240, 0.78);
+            line-height: 1.3;
         }
 
         #n8n-support-chat {
@@ -505,7 +519,7 @@
             z-index: 999;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
             .radio-link {
                 top: 18px;
                 right: 18px;
@@ -513,50 +527,86 @@
                 font-size: 0.85rem;
             }
 
-            .center-container {
-                padding: 24px;
-            }
-
-            .logo-frame {
-                padding: 24px;
-                border-radius: 24px;
-            }
-
-            img {
-                max-width: 80vw;
-                border-radius: 18px;
-            }
-
-            .platform-panel {
-                bottom: -3px;
-                width: min(92vw, 420px);
-                gap: 16px;
-            }
-
-            .platform-card {
-                padding: 16px;
-            }
-
-            .badge-circle {
-                width: 68px;
-                height: 68px;
-            }
-
             #n8n-support-chat {
-                bottom: 16px;
-                right: 16px;
+                bottom: 18px;
+                right: 18px;
             }
         }
 
-        @media (max-width: 580px) {
+        @media (max-width: 768px) {
+            .content-wrapper {
+                padding-top: 96px;
+                padding-bottom: 156px;
+            }
+
+            .logo-frame {
+                width: min(88vw, 420px);
+            }
+
             .platform-panel {
-                flex-direction: column;
-                gap: 14px;
-                width: min(92vw, 360px);
+                max-width: 360px;
+            }
+
+            .badge-circle {
+                width: 52px;
+                height: 52px;
+            }
+
+            .orb {
+                opacity: 0.65;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .platform-panel {
+                gap: 12px;
             }
 
             .platform-card {
-                padding: 18px;
+                flex: 1 1 140px;
+                max-width: 100%;
+            }
+
+            .badge-circle {
+                width: 48px;
+                height: 48px;
+            }
+
+            .tunein-wave {
+                width: 2.5px;
+            }
+
+            .alexa-bar {
+                width: 1.8px;
+            }
+
+            .orb:nth-child(n+3) {
+                display: none;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .radio-link {
+                position: fixed;
+                top: auto;
+                bottom: 24px;
+                right: 50%;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 10px 20px;
+                width: calc(100vw - 32px);
+                max-width: 320px;
+                justify-content: center;
+            }
+
+            .content-wrapper {
+                padding-inline: clamp(16px, 6vw, 24px);
+                padding-bottom: 190px;
+            }
+
+            #n8n-support-chat {
+                bottom: 90px;
+                right: 16px;
             }
         }
     </style>
@@ -576,50 +626,52 @@
         </span>
     </a>
 
-    <div class="center-container">
-        <div class="logo-frame">
-            <img src="logo.jpg" alt="Logo" />
+    <main class="content-wrapper">
+        <div class="center-container">
+            <div class="logo-frame">
+                <img src="logo.jpg" alt="Logo" />
+            </div>
         </div>
-    </div>
 
-    <div class="platform-panel">
-        <a class="platform-card" href="https://tunein.com/radio/HudaWaNour-s347430/" target="_blank" rel="noopener">
-            <div class="badge-circle badge-tunein">
-                <div class="tunein-icon">
-                    <div class="tunein-waves">
-                        <div class="tunein-wave"></div>
-                        <div class="tunein-wave"></div>
-                        <div class="tunein-wave"></div>
-                        <div class="tunein-wave"></div>
-                        <div class="tunein-wave"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="platform-details">
-                <span class="platform-name">TuneIn</span>
-                <span class="platform-tagline">Listen on TuneIn Radio</span>
-            </div>
-        </a>
-        <a class="platform-card" href="https://www.amazon.com/dp/B0FF48HY15/" target="_blank" rel="noopener">
-            <div class="badge-circle badge-alexa">
-                <div class="alexa-icon">
-                    <div class="alexa-ring">
-                        <div class="alexa-wave">
-                            <div class="alexa-bar"></div>
-                            <div class="alexa-bar"></div>
-                            <div class="alexa-bar"></div>
-                            <div class="alexa-bar"></div>
-                            <div class="alexa-bar"></div>
+        <div class="platform-panel">
+            <a class="platform-card" href="https://tunein.com/radio/HudaWaNour-s347430/" target="_blank" rel="noopener">
+                <div class="badge-circle badge-tunein">
+                    <div class="tunein-icon">
+                        <div class="tunein-waves">
+                            <div class="tunein-wave"></div>
+                            <div class="tunein-wave"></div>
+                            <div class="tunein-wave"></div>
+                            <div class="tunein-wave"></div>
+                            <div class="tunein-wave"></div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="platform-details">
-                <span class="platform-name">Amazon Alexa</span>
-                <span class="platform-tagline">Enable the Alexa skill</span>
-            </div>
-        </a>
-    </div>
+                <div class="platform-details">
+                    <span class="platform-name">TuneIn</span>
+                    <span class="platform-tagline">Listen on TuneIn Radio</span>
+                </div>
+            </a>
+            <a class="platform-card" href="https://www.amazon.com/dp/B0FF48HY15/" target="_blank" rel="noopener">
+                <div class="badge-circle badge-alexa">
+                    <div class="alexa-icon">
+                        <div class="alexa-ring">
+                            <div class="alexa-wave">
+                                <div class="alexa-bar"></div>
+                                <div class="alexa-bar"></div>
+                                <div class="alexa-bar"></div>
+                                <div class="alexa-bar"></div>
+                                <div class="alexa-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="platform-details">
+                    <span class="platform-name">Amazon Alexa</span>
+                    <span class="platform-tagline">Enable the Alexa skill</span>
+                </div>
+            </a>
+        </div>
+    </main>
 
     <div id="n8n-support-chat"></div>
 
